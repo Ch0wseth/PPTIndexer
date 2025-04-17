@@ -19,7 +19,7 @@ import doc2md_utils
 # Configuration
 BLOB_CONNECTION_STRING = ""
 BLOB_CONTAINER_NAME = ""
-BLOB_NAME = ""
+BLOB_NAME = ""  # Nom du fichier à récupérer
 SEARCH_SERVICE_NAME = ""
 SEARCH_API_KEY = ""
 SEARCH_INDEX_NAME = ""
@@ -88,7 +88,7 @@ def convert_doc_to_markdown(file_path):
 # Main function
 def main():
     try:
-        file_path = r'C:\Users\ehemmer\Dev\INSEAD_POC\PPT-Indexation-POC\backend\HK_Company X_Mission 1.5 - Sustainability Offerings_29Aug2023.pptx'
+        file_path = ""
         
         # Vérifie si le fichier existe
         if not os.path.exists(file_path):

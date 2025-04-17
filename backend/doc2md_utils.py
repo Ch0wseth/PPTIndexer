@@ -23,7 +23,7 @@ config = json.load(open("config.json"))
 
 # Azure AI Search Config
 search_service_name = config["search_service_name"]
-search_service_url = "https://chowseth-aisearch.search.windows.net/"
+search_service_url = "https://.search.windows.net/"
 
 search_admin_key = config["search_admin_key"]
 
