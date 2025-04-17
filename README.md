@@ -36,4 +36,4 @@ PPTIndexer est un projet conçu pour extraire, convertir et indexer le contenu d
    git clone https://github.com/votre-utilisateur/PPTIndexer.git
    cd PPTIndexer
 
-# Code adapté de GPT4oContentExtraction (https://github.com/liamca/GPT4oContentExtraction)
+#### Code adapté de GPT4oContentExtraction (https://github.com/liamca/GPT4oContentExtraction)
