@@ -1,0 +1,15 @@
+{
+    "search_service_name": "chowseth-aisearch",
+    "search_admin_key" : "djPg7373A64ZoIKPmMQN9luM4Yd8tTjRyvbl8ae08GAzSeAcz7lc",
+    "search_index_name": "slides",
+    "search_index_schema_file": "schema.json",
+    "search_api_version" : "2024-05-01-preview",  
+    "openai_embedding_api_base" : "https://chowseth-openai.openai.azure.com/",
+    "openai_embedding_api_key" : "4QnvijhshKE5bmEzcG3ab1w5a63Aoao5sgnsK9fdYm8cNC4MdL8jJQQJ99BDACHYHv6XJ3w3AAABACOGKSrF",
+    "openai_embedding_api_version" :  "2024-02-01",
+    "openai_embedding_model" : "text-embedding-3-large" ,
+    "openai_gpt_api_base" : "https://chowseth-openai.openai.azure.com/",
+    "openai_gpt_api_key" : "4QnvijhshKE5bmEzcG3ab1w5a63Aoao5sgnsK9fdYm8cNC4MdL8jJQQJ99BDACHYHv6XJ3w3AAABACOGKSrF",
+    "openai_gpt_api_version" :  "2024-12-01-preview",
+    "openai_gpt_model" : "gpt-4o"
+}
