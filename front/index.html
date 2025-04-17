@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Documents</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2f;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 400px;
+            background-color: #2a2a3b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .upload-box {
+            border: 2px dashed #4a4a6a;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .upload-box:hover {
+            background-color: #3a3a5a;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #005a9e;
+        }
+        .status {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #a0a0c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Documents</h1>
+        <div class="upload-box" id="uploadBox">
+            Drag and drop files here<br>or<br>
+            <label for="fileInput" style="color: #0078d7; cursor: pointer;">Browse files</label>
+            <input type="file" id="fileInput" multiple>
+        </div>
+        <button id="uploadButton">Upload Files</button>
+        <div class="status" id="status"></div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const uploadBox = document.getElementById('uploadBox');
+        const uploadButton = document.getElementById('uploadButton');
+        const statusDiv = document.getElementById('status');
+
+        let selectedFiles = [];
+
+        // Handle file selection
+        fileInput.addEventListener('change', (event) => {
+            selectedFiles = Array.from(event.target.files);
+            updateStatus();
+        });
+
+        // Handle drag-and-drop
+        uploadBox.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            uploadBox.style.backgroundColor = '#3a3a5a';
+        });
+
+        uploadBox.addEventListener('dragleave', () => {
+            uploadBox.style.backgroundColor = '';
+        });
+
+        uploadBox.addEventListener('drop', (event) => {
+            event.preventDefault();
+            uploadBox.style.backgroundColor = '';
+            selectedFiles = Array.from(event.dataTransfer.files);
+            updateStatus();
+        });
+
+        // Update status
+        function updateStatus() {
+            if (selectedFiles.length > 0) {
+                statusDiv.textContent = `${selectedFiles.length} file(s) selected.`;
+            } else {
+                statusDiv.textContent = '';
+            }
+        }
+
+        // Handle file upload
+        uploadButton.addEventListener('click', async () => {
+            if (selectedFiles.length === 0) {
+                alert('Please select files to upload.');
+                return;
+            }
+
+            statusDiv.textContent = 'Uploading...';
+
+            const sasToken = "sv=2024-11-04&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2025-04-16T16:17:54Z&st=2025-04-16T08:17:54Z&spr=https,http&sig=CZu9bSq%2BTZ%2FrJgvJ9ZdcsBn6pQVkkuhV1jqHTz%2FR4X4%3D";
+            const storageUrl = "https://chowsethsto.blob.core.windows.net/uploads"; // URL de ton conteneur
+
+            try {
+                for (const file of selectedFiles) {
+                    const uploadUrl = `${storageUrl}/${file.name}?${sasToken}`;
+                    const response = await fetch(uploadUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'x-ms-blob-type': 'BlockBlob',
+                        },
+                        body: file,
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Failed to upload ${file.name}`);
+                    }
+                }
+
+                statusDiv.textContent = 'Upload successful!';
+                selectedFiles = [];
+            } catch (error) {
+                console.error(error);
+                statusDiv.textContent = 'Upload failed. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>
